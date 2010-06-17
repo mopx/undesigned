@@ -1,0 +1,13 @@
+/*
+Theme Name: geekvoice base theme
+Theme URI: http://www.jyau.com/
+Description: 
+Version: 1.0
+Author: Jorge Yau
+Author URI: http://www.jyau.com
+*/
+
+@import url("css/reset.css");
+@import url("css/960_24_col.css");
+@import url("css/text.css");
+@import url("css/styles.css");
