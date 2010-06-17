@@ -1,3 +1,11 @@
 UNDESIGNED 1.0 por Jorge Yau
 
-undesigned es un theme de Wordpress diseñado para ahorrarte el trabajo de quitarle el diseño a un theme existente, utiliza un framework de CSS llamado <a href="http://960.gs/" target="_blank">960 Grid System</a> y es totalmente gratuito. Este puede ser utilizado como base para tus proyectos.
+undesigned es un theme de Wordpress diseñado para ahorrarte el trabajo de quitarle el diseño a un theme existente, utiliza un framework de CSS llamado 960 Grid System (http://960.gs/) y es totalmente gratuito. Este puede ser utilizado como base para tus proyectos.
+
+No planeo dar soporte personal a invididuos que necesiten ayuda implementandolo.
+
+El proposito de el theme es utilizarlo como base para sus proyectos, y requiere un conocimiento básico del funcionamiento de los themes para Wordpress.
+
+Si tienes sugerencias o si quieres participar con el desarrollo de el código, pueden escribirme libremente, además el proyecto está en github, pueden hacer un fork, editarlo y hacer un pull request cuando gusten.
+
+- Jorge Yau (www.jyau.com)
