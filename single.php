@@ -1,22 +1,36 @@
 <?php get_header(); ?>
 
-
 <div class="grid_16">
 
 <?php if (have_posts()) : ?>
 <?php while (have_posts()) : the_post(); ?>
-<?php /* This is the navigation for previous/next post. It's disabled by default. ?>
-<p id="entrynavigation">
-<?php previous_post('<span class="previous">%</span>','','yes') ?>
-<?php next_post('<span class="next">%</span>','','yes') ?>
-</p>
-<?php */ ?>
+
 
 <div class="entry single">
 <h2><?php the_title(); ?></h2>
 <?php the_content();?>
-<?php edit_post_link('Editar','<p>','</p>'); ?>
 </div><!-- .entry .single -->
+
+<div id="meta">
+  <p class="date"><strong><?php _e("Published on"); ?></strong>: <?php the_time('F j, Y') ?> <?php the_time('h:ia')  ?></p>
+  <p class="categories"><?php _e("Under the categories"); ?>:
+    <?php the_category(','); ?>
+  </p>
+  <?php if ($post-> comment_status == "open" && $post->ping_status == "open") { ?>
+
+  <p><a href="<?php trackback_url(display); ?>">Trackback URL</a> <br />
+    <?php comments_rss_link('RSS Feed URL'); ?>
+  </p>
+  <?php } elseif ($post-> comment_status == "open") {?>
+  <p>
+    <?php comments_rss_link('RSS Feed URL'); ?>
+  </p>
+  <?php } elseif ($post->ping_status == "open") {?>
+  <p><a href="<?php trackback_url(display); ?>">Trackback this post</a></p>
+  <?php } ?>
+</div><!-- #meta -->
+
+<?php edit_post_link('Edit','<p>','</p>'); ?>
 
 <div class="navigation">
 <div class="col1">
@@ -30,10 +44,11 @@
 <?php endwhile; ?>
 <?php else : ?>
 
-<h2>Not Found</h2>
-<p>"Sorry, but you are looking for something that isn't here.</p>
+<h2><?php _e("Not Found"); ?></h2>
+<p><?php _e("Sorry, but you are looking for something that isn't here."); ?></p>
 
 <?php endif; ?>
+
 <?php comments_template(); ?>
 
 </div><!-- .grid_16 -->
