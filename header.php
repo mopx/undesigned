@@ -27,13 +27,7 @@
 </div><!-- .grid_16 -->
 
 <div class="grid_7 prefix_1">
-<div id="search">
-<form id="searchform" method="get" action="/index.php">
-<label for="s">Buscar</label>   
-<input type="text" name="s" id="s" size="15" />
-<input type="submit" value="Buscar" />
-</form>
-</div><!-- #search -->
+<?php if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('Header')) : ?><?php endif; ?>
 </div><!-- .grid_7 -->
 
 </div><!-- #header -->
@@ -42,25 +36,11 @@
 <div class="clear"></div>
 <div class="grid_24">
 <div id="menu">
-<ul>
-<li<?php if (is_home()) echo " class=\"selected\""; ?>><a href="<?php bloginfo('url'); ?>"><span>Blog</span></a></li>
-<?php
-$pages = BX_get_pages();
-if ($pages) {
-	foreach ($pages as $page) {
-		$page_id = $page->ID;
-		$page_title = $page->post_title;
-		$page_name = $page->post_name;
-		(is_page($page_id))?$selected = ' class="selected"':$selected='';
-			echo "\t<li".$selected."><a href=\"".get_page_link($page_id)."\">$page_title</a></li>\n";
-	}
-}
-?>
-</ul>
+
+<?php wp_nav_menu( array( 'theme_location' => 'menu-1' ) ); ?>
 
 <div class="clear"></div>
 </div><!-- #menu --> 
-</div>
-<!-- .grid_24 -->
+</div><!-- .grid_24 -->
 
 <div class="clear"></div>
