@@ -3,34 +3,26 @@
 <div class="grid_16">
 
 <?php if (have_posts()) : ?>
-
 <?php while (have_posts()) : the_post(); ?>
-<?php $custom_fields = get_post_custom(); //custom fields ?>
-<?php if (isset($custom_fields["BX_post_type"]) && $custom_fields["BX_post_type"][0] == "mini") { ?>
-<div class="minientry">
-<?php } else { ?>
-<?php ; ?>
-
 <div class="entry">
 <h2><a href="<?php the_permalink() ?>" title="Permalink"><?php the_title(); ?></a></h2>
 <?php ($post->post_excerpt != "")? the_excerpt() : the_content(); ?>
 <?php if ($post->post_excerpt != "") { ?>
-<p><a href="<?php the_permalink() ?>" class="more">Continúa leyendo...</a></p>
+<p><a href="<?php the_permalink() ?>" class="more"><?= _e("Continue reading..."); ?></a></p>
 <?php } ?>
-<p class="meta"><?php the_time('F j, Y') ?> <?php the_time('h:ia')  ?> | <?php comments_popup_link('Comentar', '1 comentario', '% comentarios', 'commentlink', ''); ?></p>
-<?php edit_post_link('Editar','<p>','</p>'); ?>
-</div><!-- .entry -->
+<p class="meta"><?php the_time('F j, Y') ?> <?php the_time('h:ia')  ?> | <?php comments_popup_link(__('Comment'), __( '1 comment'), __( '% comments'), 'commentlink', ''); ?></p>
+<?php edit_post_link(__('Edit'),'<p>','</p>'); ?>
 <!-- <?php trackback_rdf(); ?> -->
-<?php } ?>
+</div><!-- .entry -->
 <?php endwhile; ?>
 
 <div class="navigation">
-<?php next_posts_link('&laquo; Posts mas viejos') ?> <?php previous_posts_link('Posts mas recientes &raquo;') ?>
+<?php next_posts_link(__('&laquo; Older posts')) ?> <?php previous_posts_link(__('Recent posts &raquo;')) ?>
 </div><!-- #navigation -->
 
 <?php else : ?>
-<h2>Página no encontrada</h2>
-<p>Lo lamento, lo que buscas, no está aquí.</p>
+<h2><?= _e("Not found"); ?></h2>
+<p><?= _e("We couldn't find what you are looking for. Try the archives"); ?></p>
 <?php endif; ?>
 
 </div><!-- .grid_16 -->

@@ -25,56 +25,30 @@
     <?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
       <h2>Archivo del Blog</h2>
       <?php } ?>
-    <?php while (have_posts()) : the_post(); ?>
-    <?php $custom_fields = get_post_custom(); ?>
-    <?php if (isset($custom_fields["BX_post_type"]) && $custom_fields["BX_post_type"][0] == "mini") { ?>
-    <hr class="low" />
-    <div class="minientry">
-      <p> <?php echo BX_remove_p($post->post_content); ?>
-        <?php comments_popup_link('(0)', '(1)', '(%)', 'commentlink', ''); ?>
-        <a href="<?php the_permalink(); ?>" class="permalink" title="Permalink">
-        <?php the_time('M j, \'y') ?>
-        </a>
-        <?php edit_post_link('Edit','<span class="editlink">','</span>'); ?>
-      </p>
-    </div>
-    <hr class="low" />
-    <?php } else { ?>
-    <div class="entry archivos">
-      <h3><a href="<?php the_permalink() ?>" title="Permalink">
-        <?php the_title(); ?>
-        </a></h3>
-      <?php the_excerpt();?>
-      <p><a href="<?php the_permalink() ?>">Ver post completo</a></p>
-      <?php edit_post_link('Editar','<p>','</p>'); ?>
-      <div class="meta">
-        <?php the_time('F j, Y') ?>
-        <?php the_time('h:ia')  ?>
-        |
-        <?php comments_popup_link('Comentar', '1 comentario', '% comentarios', 'commentlink', ''); ?>
-      </div>
-      <!-- meta -->
-      </p>
-    </div>
-    <?php } ?>
-    <?php endwhile; ?>
-	<div class="navigation"> <br />
-	  <br />
-	  <div class="col1">
-	    <?php next_posts_link('&laquo; Posts mas viejos') ?>
-	  </div>
-	  <div class="col2" style="text-align:right;">
-	    <?php previous_posts_link('Posts mas recientes &raquo;') ?>
-	  </div>
-	</div>
-	<!-- end navigation -->
-    <br />
-    <br />
-    <br clear="all" />
-    <?php else : ?>
-		<h2>Página no encontrada</h2>
-		<p>Lo lamento, lo que buscas, no está aquí.</p>
-    <?php endif; ?>
+
+<?php while (have_posts()) : the_post(); ?>
+
+<div class="entry">
+<h2><a href="<?php the_permalink() ?>" title="Permalink"><?php the_title(); ?></a></h2>
+<?php ($post->post_excerpt != "")? the_excerpt() : the_content(); ?>
+<?php if ($post->post_excerpt != "") { ?>
+<p><a href="<?php the_permalink() ?>" class="more"><?= _e("Continue reading..."); ?></a></p>
+<?php } ?>
+<p class="meta"><?php the_time('F j, Y') ?> <?php the_time('h:ia')  ?> | <?php comments_popup_link(__('Comment'), __( '1 comment'), __( '% comments'), 'commentlink', ''); ?></p>
+<?php edit_post_link(__('Edit'),'<p>','</p>'); ?>
+<!-- <?php trackback_rdf(); ?> -->
+</div><!-- .entry -->
+
+<?php endwhile; ?>
+
+<div class="navigation">
+<?php next_posts_link(__('&laquo; Older posts')) ?> <?php previous_posts_link(__('Recent posts &raquo;')) ?>
+</div><!-- #navigation -->
+
+<?php else : ?>
+<h2><?= _e("Not found"); ?></h2>
+<p><?= _e("We couldn't find what you are looking for. Try the archives"); ?></p>
+<?php endif; ?>
 
 </div><!-- .grid_16 -->
 <?php get_sidebar(); ?>

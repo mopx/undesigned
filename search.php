@@ -1,59 +1,34 @@
 <?php get_header(); ?>
 
-<div id="colMain" class="archive">
-  <div class="margin">
-    <?php if (have_posts()) : ?>
-    <h2>Resultados de búsqueda para <em>&#8216;<?php echo $s ?>&#8217;</em></h2>
-    <?php while (have_posts()) : the_post(); ?>
-    <?php $custom_fields = get_post_custom(); //custom fields ?>
-    <?php if (isset($custom_fields["BX_post_type"]) && $custom_fields["BX_post_type"][0] == "mini") { ?>
-    <div class="minientry">
-      <p> <?php echo BX_remove_p($post->post_content); ?>
-        <?php comments_popup_link('(0)', '(1)', '(%)', 'commentlink', ''); ?>
-        <a href="<?php the_permalink(); ?>" class="permalink" title="Permalink">
-        <?php the_time('M j, \'y') ?>
-        <!--, <?php the_time('h:ia')  ?>-->
-        </a>
-        <!--<em class="author"><?php the_author() ?></em>-->
-        <?php edit_post_link('Edit','<span class="editlink">','</span>'); ?>
-      </p>
-    </div>
-    <hr class="low" />
-    <?php } else { ?>
-    <div class="entry">
-      <h3><a href="<?php the_permalink() ?>" title="Permalink">
-        <?php the_title(); ?>
-        </a></h3>
-      <?php ($post->post_excerpt != "")? the_excerpt() : BX_shift_down_headlines($post->post_content); ?>
-      <p class="info">
-        <?php if ($post->post_excerpt != "") { ?>
-        <a href="<?php the_permalink() ?>" class="more">Continue Reading</a>
-        <?php } ?>
-        <?php comments_popup_link('Add comment', '1 comment', '% comments', 'commentlink', ''); ?>
-        <em class="date">
-        <?php the_time('F jS, Y') ?>
-        <!-- at <?php the_time('h:ia')  ?>-->
-        </em>
-        <!--<em class="author"><?php the_author(); ?></em>-->
-        <?php edit_post_link('Edit','<span class="editlink">','</span>'); ?>
-      </p>
-    </div>
-    <?php } ?>
-    <?php endwhile; ?>
-    <p>
-      <!-- this is ugly -->
-      <span class="next">
-      <?php previous_posts_link('Next Posts') ?>
-      </span> <span class="previous">
-      <?php next_posts_link('Previous Posts') ?>
-      </span> </p>
-    <?php else : ?>
-    <h2>No hoy resultados para <em>&#8216;<?php echo $s ?>&#8217;</em></h2>
-    <p>Lo siento, lo que buscas, no está aquí.</p>
-    <?php endif; ?>
-  </div>
-  <!-- margin -->
-</div>
-<!-- colMain -->
+<div class="grid_16">
+
+<?php if (have_posts()) : ?>
+<h2><?= _e("Search results for"); ?> <em>&#8216;<?php echo $s ?>&#8217;</em></h2>
+
+<?php while (have_posts()) : the_post(); ?>
+
+<div class="entry">
+<h2><a href="<?php the_permalink() ?>" title="Permalink"><?php the_title(); ?></a></h2>
+<?php ($post->post_excerpt != "")? the_excerpt() : the_content(); ?>
+<?php if ($post->post_excerpt != "") { ?>
+<p><a href="<?php the_permalink() ?>" class="more"><?= _e("Continue reading..."); ?></a></p>
+<?php } ?>
+<p class="meta"><?php the_time('F j, Y') ?> <?php the_time('h:ia')  ?> | <?php comments_popup_link(__('Comment'), __( '1 comment'), __( '% comments'), 'commentlink', ''); ?></p>
+<?php edit_post_link(__('Edit'),'<p>','</p>'); ?>
+<!-- <?php trackback_rdf(); ?> -->
+</div><!-- .entry -->
+
+<?php endwhile; ?>
+
+<div class="navigation">
+<?php next_posts_link(__('&laquo; Older posts')) ?> <?php previous_posts_link(__('Recent posts &raquo;')) ?>
+</div><!-- #navigation -->
+
+<?php else : ?>
+<h2><?= _e("Not found"); ?></h2>
+<p><?= _e("We couldn't find what you are looking for. Try the archives"); ?></p>
+<?php endif; ?>
+
+</div><!-- .grid_16 -->
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
